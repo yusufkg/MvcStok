@@ -11,23 +11,20 @@ namespace MvcStok.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TBLMUSTERILER
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TBLMUSTERILER()
         {
-            this.TBLSATISLAR = new HashSet<TBLSATISLAR>();
+            this.TBLSATISLARs = new HashSet<TBLSATISLAR>();
         }
-         public int MUSTERIID { get; set; }
-        [Required(ErrorMessage = "Bu alaný boþ geçemezsiniz")]
-        [StringLength(50, ErrorMessage = "En fazla 50 karakterlik isim giriniz")]
-
+    
+        public int MUSTERIID { get; set; }
         public string MUSTERIAD { get; set; }
         public string MUSTERISOYAD { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TBLSATISLAR> TBLSATISLAR { get; set; }
+        public virtual ICollection<TBLSATISLAR> TBLSATISLARs { get; set; }
     }
 }

@@ -9,11 +9,11 @@ namespace MvcStok.Controllers
 {
     public class MusteriController : Controller
     {
-        MvcDbStokEntities db = new MvcDbStokEntities();
+        MvcDbStokEntities1 db = new MvcDbStokEntities1();
         // GET: Musteri
         public ActionResult Index(string p)
         {
-            var degerler = from d in db.TBLMUSTERILER select d;
+            var degerler = from d in db.TBLMUSTERILERs select d;
             if (!string.IsNullOrEmpty(p))
             {
                 degerler = degerler.Where(m => m.MUSTERIAD.Contains(p));
@@ -37,25 +37,25 @@ namespace MvcStok.Controllers
             {
                 return View("YeniMusteri");
             }
-            db.TBLMUSTERILER.Add(p1);
+            db.TBLMUSTERILERs.Add(p1);
             db.SaveChanges();
             return View();
         }
         public ActionResult SIL(int id)
         {
-            var musteri = db.TBLMUSTERILER.Find(id);
-            db.TBLMUSTERILER.Remove(musteri);
+            var musteri = db.TBLMUSTERILERs.Find(id);
+            db.TBLMUSTERILERs.Remove(musteri);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult MusteriGetir(int id)
         {
-            var mus = db.TBLMUSTERILER.Find(id);
+            var mus = db.TBLMUSTERILERs.Find(id);
             return View("MusteriGetir", mus);
         }
         public ActionResult Guncelle(TBLMUSTERILER p1)
         {
-            var musteri = db.TBLMUSTERILER.Find(p1.MUSTERIID);
+            var musteri = db.TBLMUSTERILERs.Find(p1.MUSTERIID);
             musteri.MUSTERIAD = p1.MUSTERIAD;
             musteri.MUSTERISOYAD = p1.MUSTERISOYAD;
             db.SaveChanges();

@@ -14,15 +14,21 @@ namespace MvcStok.Models.Entity
     
     public partial class TBLURUNLER
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TBLURUNLER()
+        {
+            this.TBLSATISLARs = new HashSet<TBLSATISLAR>();
+        }
+    
         public int URUNID { get; set; }
         public string URUNAD { get; set; }
         public string MARKA { get; set; }
-        public Nullable<short> URUNKATREGORI { get; set; }
+        public Nullable<short> URUNKATEGORI { get; set; }
         public Nullable<decimal> FIYAT { get; set; }
         public Nullable<byte> STOK { get; set; }
     
         public virtual TBLKATEGORILER TBLKATEGORILER { get; set; }
-
-        public virtual ICollection<TBLSATISLAR> TBLSATISLAR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBLSATISLAR> TBLSATISLARs { get; set; }
     }
 }

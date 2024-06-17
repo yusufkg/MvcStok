@@ -13,10 +13,10 @@ namespace MvcStok.Models.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MvcDbStokEntities : DbContext
+    public partial class MvcDbStokEntities1 : DbContext
     {
-        public MvcDbStokEntities()
-            : base("name=MvcDbStokEntities")
+        public MvcDbStokEntities1()
+            : base("name=MvcDbStokEntities1")
         {
         }
     
@@ -25,10 +25,10 @@ namespace MvcStok.Models.Entity
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<TBLKATEGORILER> TBLKATEGORILER { get; set; }
-        public virtual DbSet<TBLMUSTERILER> TBLMUSTERILER { get; set; }
-        public virtual DbSet<TBLSATISLAR> TBLSATISLAR { get; set; }
-        public virtual DbSet<TBLURUNLER> TBLURUNLER { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<TBLKATEGORILER> TBLKATEGORILERs { get; set; }
+        public virtual DbSet<TBLMUSTERILER> TBLMUSTERILERs { get; set; }
+        public virtual DbSet<TBLSATISLAR> TBLSATISLARs { get; set; }
+        public virtual DbSet<TBLURUNLER> TBLURUNLERs { get; set; }
     }
 }

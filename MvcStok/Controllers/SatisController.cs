@@ -9,7 +9,7 @@ namespace MvcStok.Controllers
 {
     public class SatisController : Controller
     {
-        MvcDbStokEntities db = new MvcDbStokEntities();
+        MvcDbStokEntities1 db = new MvcDbStokEntities1();
         // GET: Satis
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace MvcStok.Controllers
         [HttpPost]
         public ActionResult YeniSatis(TBLSATISLAR p)
         {
-            db.TBLSATISLAR.Add(p);
+            db.TBLSATISLARs.Add(p);
             db.SaveChanges();
             return View("Index");
         }

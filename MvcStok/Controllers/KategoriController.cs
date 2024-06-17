@@ -11,11 +11,11 @@ namespace MvcStok.Controllers
 {
     public class KategoriController : Controller
     {
-        MvcDbStokEntities db = new MvcDbStokEntities();
+        MvcDbStokEntities1 db = new MvcDbStokEntities1();
         // GET: Kategori
         public ActionResult Index(int sayfa=1)
         {
-            var degerler = db.TBLKATEGORILER.ToList().ToPagedList(sayfa,2);
+            var degerler = db.TBLKATEGORILERs.ToList().ToPagedList(sayfa,2);
             return View(degerler);
         }
         [HttpGet]
@@ -30,25 +30,25 @@ namespace MvcStok.Controllers
             {
                 return View("YeniKategori");
             }
-            db.TBLKATEGORILER.Add(p1);
+            db.TBLKATEGORILERs.Add(p1);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult SIL(int id)
         {
-            var kategori = db.TBLKATEGORILER.Find(id);
-            db.TBLKATEGORILER.Remove(kategori);
+            var kategori = db.TBLKATEGORILERs.Find(id);
+            db.TBLKATEGORILERs.Remove(kategori);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult KategoriGetir(int id)
         {
-            var ktgr = db.TBLKATEGORILER.Find(id);
+            var ktgr = db.TBLKATEGORILERs.Find(id);
             return View("KategoriGetir", ktgr);
         }
         public ActionResult Guncelle(TBLKATEGORILER p1)
         {
-            var ktg=db.TBLKATEGORILER.Find(p1.KATEGORIID);
+            var ktg=db.TBLKATEGORILERs.Find(p1.KATEGORIID);
             ktg.KATEGORIAD = p1.KATEGORIAD;
             db.SaveChanges();
             return RedirectToAction("Index");

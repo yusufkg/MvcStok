@@ -47,7 +47,7 @@
           <Property Name="URUNID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="URUNAD" Type="varchar" MaxLength="50" />
           <Property Name="MARKA" Type="varchar" MaxLength="50" />
-          <Property Name="URUNKATREGORI" Type="smallint" />
+          <Property Name="URUNKATEGORI" Type="smallint" />
           <Property Name="FIYAT" Type="decimal" Precision="18" Scale="2" />
           <Property Name="STOK" Type="tinyint" />
         </EntityType>
@@ -63,6 +63,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TBLSATISLAR_TBLURUNLER">
+          <End Role="TBLURUNLER" Type="Self.TBLURUNLER" Multiplicity="0..1" />
+          <End Role="TBLSATISLAR" Type="Self.TBLSATISLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLURUNLER">
+              <PropertyRef Name="URUNID" />
+            </Principal>
+            <Dependent Role="TBLSATISLAR">
+              <PropertyRef Name="URUN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TBLURUNLER_TBLKATEGORILER">
           <End Role="TBLKATEGORILER" Type="Self.TBLKATEGORILER" Multiplicity="0..1" />
           <End Role="TBLURUNLER" Type="Self.TBLURUNLER" Multiplicity="*" />
@@ -71,7 +83,7 @@
               <PropertyRef Name="KATEGORIID" />
             </Principal>
             <Dependent Role="TBLURUNLER">
-              <PropertyRef Name="URUNKATREGORI" />
+              <PropertyRef Name="URUNKATEGORI" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -85,6 +97,10 @@
             <End Role="TBLMUSTERILER" EntitySet="TBLMUSTERILER" />
             <End Role="TBLSATISLAR" EntitySet="TBLSATISLAR" />
           </AssociationSet>
+          <AssociationSet Name="FK_TBLSATISLAR_TBLURUNLER" Association="Self.FK_TBLSATISLAR_TBLURUNLER">
+            <End Role="TBLURUNLER" EntitySet="TBLURUNLER" />
+            <End Role="TBLSATISLAR" EntitySet="TBLSATISLAR" />
+          </AssociationSet>
           <AssociationSet Name="FK_TBLURUNLER_TBLKATEGORILER" Association="Self.FK_TBLURUNLER_TBLKATEGORILER">
             <End Role="TBLKATEGORILER" EntitySet="TBLKATEGORILER" />
             <End Role="TBLURUNLER" EntitySet="TBLURUNLER" />
@@ -95,7 +111,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MvcDbStokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -111,7 +127,7 @@
           </Key>
           <Property Name="KATEGORIID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KATEGORIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBLURUNLER" Relationship="Self.FK_TBLURUNLER_TBLKATEGORILER" FromRole="TBLKATEGORILER" ToRole="TBLURUNLER" />
+          <NavigationProperty Name="TBLURUNLERs" Relationship="Self.FK_TBLURUNLER_TBLKATEGORILER" FromRole="TBLKATEGORILER" ToRole="TBLURUNLER" />
         </EntityType>
         <EntityType Name="TBLMUSTERILER">
           <Key>
@@ -120,7 +136,7 @@
           <Property Name="MUSTERIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MUSTERIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MUSTERISOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TBLSATISLAR" Relationship="Self.FK_TBLSATISLAR_TBLMUSTERILER" FromRole="TBLMUSTERILER" ToRole="TBLSATISLAR" />
+          <NavigationProperty Name="TBLSATISLARs" Relationship="Self.FK_TBLSATISLAR_TBLMUSTERILER" FromRole="TBLMUSTERILER" ToRole="TBLSATISLAR" />
         </EntityType>
         <EntityType Name="TBLSATISLAR">
           <Key>
@@ -132,6 +148,7 @@
           <Property Name="ADET" Type="Byte" />
           <Property Name="FIYAT" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="TBLMUSTERILER" Relationship="Self.FK_TBLSATISLAR_TBLMUSTERILER" FromRole="TBLSATISLAR" ToRole="TBLMUSTERILER" />
+          <NavigationProperty Name="TBLURUNLER" Relationship="Self.FK_TBLSATISLAR_TBLURUNLER" FromRole="TBLSATISLAR" ToRole="TBLURUNLER" />
         </EntityType>
         <EntityType Name="TBLURUNLER">
           <Key>
@@ -140,10 +157,11 @@
           <Property Name="URUNID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="URUNAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MARKA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="URUNKATREGORI" Type="Int16" />
+          <Property Name="URUNKATEGORI" Type="Int16" />
           <Property Name="FIYAT" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="STOK" Type="Byte" />
           <NavigationProperty Name="TBLKATEGORILER" Relationship="Self.FK_TBLURUNLER_TBLKATEGORILER" FromRole="TBLURUNLER" ToRole="TBLKATEGORILER" />
+          <NavigationProperty Name="TBLSATISLARs" Relationship="Self.FK_TBLSATISLAR_TBLURUNLER" FromRole="TBLURUNLER" ToRole="TBLSATISLAR" />
         </EntityType>
         <Association Name="FK_TBLURUNLER_TBLKATEGORILER">
           <End Role="TBLKATEGORILER" Type="Self.TBLKATEGORILER" Multiplicity="0..1" />
@@ -153,7 +171,7 @@
               <PropertyRef Name="KATEGORIID" />
             </Principal>
             <Dependent Role="TBLURUNLER">
-              <PropertyRef Name="URUNKATREGORI" />
+              <PropertyRef Name="URUNKATEGORI" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -169,19 +187,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MvcDbStokEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TBLKATEGORILER" EntityType="Self.TBLKATEGORILER" />
-          <EntitySet Name="TBLMUSTERILER" EntityType="Self.TBLMUSTERILER" />
-          <EntitySet Name="TBLSATISLAR" EntityType="Self.TBLSATISLAR" />
-          <EntitySet Name="TBLURUNLER" EntityType="Self.TBLURUNLER" />
+        <Association Name="FK_TBLSATISLAR_TBLURUNLER">
+          <End Role="TBLURUNLER" Type="Self.TBLURUNLER" Multiplicity="0..1" />
+          <End Role="TBLSATISLAR" Type="Self.TBLSATISLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLURUNLER">
+              <PropertyRef Name="URUNID" />
+            </Principal>
+            <Dependent Role="TBLSATISLAR">
+              <PropertyRef Name="URUN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MvcDbStokEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TBLKATEGORILERs" EntityType="Self.TBLKATEGORILER" />
+          <EntitySet Name="TBLMUSTERILERs" EntityType="Self.TBLMUSTERILER" />
+          <EntitySet Name="TBLSATISLARs" EntityType="Self.TBLSATISLAR" />
+          <EntitySet Name="TBLURUNLERs" EntityType="Self.TBLURUNLER" />
           <AssociationSet Name="FK_TBLURUNLER_TBLKATEGORILER" Association="Self.FK_TBLURUNLER_TBLKATEGORILER">
-            <End Role="TBLKATEGORILER" EntitySet="TBLKATEGORILER" />
-            <End Role="TBLURUNLER" EntitySet="TBLURUNLER" />
+            <End Role="TBLKATEGORILER" EntitySet="TBLKATEGORILERs" />
+            <End Role="TBLURUNLER" EntitySet="TBLURUNLERs" />
           </AssociationSet>
           <AssociationSet Name="FK_TBLSATISLAR_TBLMUSTERILER" Association="Self.FK_TBLSATISLAR_TBLMUSTERILER">
-            <End Role="TBLMUSTERILER" EntitySet="TBLMUSTERILER" />
-            <End Role="TBLSATISLAR" EntitySet="TBLSATISLAR" />
+            <End Role="TBLMUSTERILER" EntitySet="TBLMUSTERILERs" />
+            <End Role="TBLSATISLAR" EntitySet="TBLSATISLARs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLSATISLAR_TBLURUNLER" Association="Self.FK_TBLSATISLAR_TBLURUNLER">
+            <End Role="TBLURUNLER" EntitySet="TBLURUNLERs" />
+            <End Role="TBLSATISLAR" EntitySet="TBLSATISLARs" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -189,9 +223,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MvcDbStokModelStoreContainer" CdmEntityContainer="MvcDbStokEntities">
+        <EntityContainerMapping StorageEntityContainer="MvcDbStokModelStoreContainer" CdmEntityContainer="MvcDbStokEntities1">
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="MvcDbStokModel.sysdiagrams">
+            <EntityTypeMapping TypeName="MvcDbStokModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -201,7 +235,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBLKATEGORILER">
+          <EntitySetMapping Name="TBLKATEGORILERs">
             <EntityTypeMapping TypeName="MvcDbStokModel.TBLKATEGORILER">
               <MappingFragment StoreEntitySet="TBLKATEGORILER">
                 <ScalarProperty Name="KATEGORIID" ColumnName="KATEGORIID" />
@@ -209,7 +243,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBLMUSTERILER">
+          <EntitySetMapping Name="TBLMUSTERILERs">
             <EntityTypeMapping TypeName="MvcDbStokModel.TBLMUSTERILER">
               <MappingFragment StoreEntitySet="TBLMUSTERILER">
                 <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
@@ -218,7 +252,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBLSATISLAR">
+          <EntitySetMapping Name="TBLSATISLARs">
             <EntityTypeMapping TypeName="MvcDbStokModel.TBLSATISLAR">
               <MappingFragment StoreEntitySet="TBLSATISLAR">
                 <ScalarProperty Name="SATISID" ColumnName="SATISID" />
@@ -229,13 +263,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TBLURUNLER">
+          <EntitySetMapping Name="TBLURUNLERs">
             <EntityTypeMapping TypeName="MvcDbStokModel.TBLURUNLER">
               <MappingFragment StoreEntitySet="TBLURUNLER">
                 <ScalarProperty Name="URUNID" ColumnName="URUNID" />
                 <ScalarProperty Name="URUNAD" ColumnName="URUNAD" />
                 <ScalarProperty Name="MARKA" ColumnName="MARKA" />
-                <ScalarProperty Name="URUNKATREGORI" ColumnName="URUNKATREGORI" />
+                <ScalarProperty Name="URUNKATEGORI" ColumnName="URUNKATEGORI" />
                 <ScalarProperty Name="FIYAT" ColumnName="FIYAT" />
                 <ScalarProperty Name="STOK" ColumnName="STOK" />
               </MappingFragment>
@@ -255,7 +289,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
